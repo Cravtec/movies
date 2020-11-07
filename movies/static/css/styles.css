@@ -1,0 +1,11 @@
+html {
+    scroll-behavior: smooth;
+}
+body {
+    background-color: transparent;
+}
+
+/* >>> ICONS >>> */
+nav.navbar div a svg {
+    font-size: 1.8em;
+}
