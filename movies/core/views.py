@@ -1,4 +1,5 @@
 import logging
+from django.shortcuts import render
 
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
@@ -16,8 +17,8 @@ class StaffRequiredMixin(UserPassesTestMixin):
 LOGGER = logging.getLogger()
 
 
-class MovieView(ListView):
-    template_name = 'core/movies.html'
+class MovieView(LoginRequiredMixin, ListView):
+    template_name = 'core/movie_list.html'
     model = Movie
 
     def get_context_data(self, **kwargs):
@@ -28,7 +29,7 @@ class MovieView(ListView):
     # extra_context = {'movies': Movie.objects.exclude(genre__age_limit=AGE_CHOICES.adults)}
 
 
-class MovieCreateView(CreateView, LoginRequiredMixin, PermissionRequiredMixin):
+class MovieCreateView(LoginRequiredMixin, CreateView):
     title = 'Add Movie'
     template_name = 'form.html'
     form_class = MovieForm
@@ -39,7 +40,7 @@ class MovieCreateView(CreateView, LoginRequiredMixin, PermissionRequiredMixin):
         return super().form_invalid(form)
 
 
-class MovieUpdateView(UpdateView, LoginRequiredMixin, PermissionRequiredMixin, StaffRequiredMixin):
+class MovieUpdateView(LoginRequiredMixin, UpdateView, PermissionRequiredMixin, StaffRequiredMixin):
     template_name = 'form.html'
     model = Movie
     form_class = MovieForm
@@ -50,8 +51,8 @@ class MovieUpdateView(UpdateView, LoginRequiredMixin, PermissionRequiredMixin, S
         return super().form_invalid(form)
 
 
-class MovieDeleteView(DeleteView, LoginRequiredMixin, PermissionRequiredMixin, StaffRequiredMixin):
-    template_name = 'movie_confirm_delete.html'
+class MovieDeleteView(LoginRequiredMixin, DeleteView, PermissionRequiredMixin, StaffRequiredMixin):
+    template_name = 'core/movie_confirm_delete.html'
     model = Movie
     success_url = reverse_lazy('core:movie_list')
 
@@ -62,3 +63,7 @@ class MovieDeleteView(DeleteView, LoginRequiredMixin, PermissionRequiredMixin, S
 class MovieDetailView(DetailView):
     template_name = 'core/movie_detail.html'
     model = Movie
+
+
+def confirm_delete(request):
+    return render(request, 'core/movie_confirm_delete.html')

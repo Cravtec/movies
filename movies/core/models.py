@@ -1,6 +1,7 @@
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from model_utils import Choices
+from PIL import Image
 
 AGE_CHOICES = Choices(
     (0, 'kids', 'kids'),
@@ -46,9 +47,22 @@ class Movie(models.Model):
     genre = models.ForeignKey(Genre, null=True, on_delete=models.DO_NOTHING)
     director = models.ForeignKey(Director, null=True, on_delete=models.DO_NOTHING)
     country = models.ManyToManyField(Country, related_name='movies')
+    image = models.ImageField(default='default.jpg', upload_to='movie_cover', null=True, blank=True)
 
     class Meta:
         unique_together = ('title', 'released')
 
     def __str__(self):
         return f"{self.title} from {self.released}"
+
+    def save(self):
+        super().save()
+        img = Image.open(self.image.path)
+
+        if img.width > 200:
+            output_size = (200, 200)
+            img.thumbnail(output_size)
+            img.save(self.image.path)
+
+    # def get_absolute_url(self):
+    #     return reverse('core/movie_detail', kwargs={'pk': self.pk})

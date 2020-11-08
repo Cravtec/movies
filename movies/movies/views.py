@@ -1,5 +1,8 @@
-from core.views import MovieView
+from django.views.generic import ListView
+
+from core.models import Movie
 
 
-class IndexView(MovieView):
+class IndexView(ListView):
     template_name = 'index.html'
+    model = Movie

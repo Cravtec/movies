@@ -43,6 +43,7 @@ class MovieForm(forms.ModelForm):
             'director',
             'description',
             'country',
+            'image',
             Submit('submit', 'Submit'),
         )
 

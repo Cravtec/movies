@@ -3,9 +3,18 @@
 {% load movie_extras %}
 
 {% block content %}
-    {{ movie|attr_as_p:'title' }}
-    {{ movie|attr_as_p:'released' }}
-    {{ movie|attr_as_p:'genre' }}
-    {{ movie|attr_as_p:'rating' }}
-    {{ movie|attr_as_p:'description' }}
+    <div class="mb-3">
+        <a class="btn btn-light btn-md" href="{% url 'core:movie_list' %}">
+            <i class="fas fa-chevron-circle-left"></i> Go back</a>
+    </div>
+    <div class="mt-3">
+        <img src="{{ movie.image.url }}" width="200px" alt="{{ movie.title }}">
+        <hr>
+        <strong>{{ movie|attr_as_p:'title' }}</strong>
+        {{ movie|attr_as_p:'director' }}
+        {{ movie|attr_as_p:'released' }}
+        {{ movie|attr_as_p:'genre' }}
+        {{ movie|attr_as_p:'rating' }}
+        {{ movie|attr_as_p:'description' }}
+    </div>
 {% endblock %}

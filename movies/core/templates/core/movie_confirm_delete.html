@@ -9,6 +9,6 @@
             Are you sure you want to delete movie {{ object.title }} from the database?
         </p>
         <input type="submit" value="Yes" class="btn btn-danger">
-        <a href="{% url 'index' %}"><button class="btn btn-outline-secondary" type="button">No</button></a>
+        <a href="{% url 'core:movie_list' %}"><button class="btn btn-outline-secondary" type="button">No</button></a>
     </form>
 {% endblock %}

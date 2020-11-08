@@ -3,14 +3,27 @@
 {% load movie_extras %}
 
 {% block content %}
-    <ul>
-        {% for movie in object_list %}
-            <li>
-                {% movie_format movie short=True %}
-                <a href="{% url 'core:movie_detail' movie.pk %}">detail</a>
-                <a href="{% url 'core:movie_update' movie.pk %}">update</a>
-                <a href="{% url 'core:movie_delete' movie.pk %}">delete</a>
-            </li>
-        {% endfor %}
-    </ul>
+<h2>Welcome to Django Movies!</h2>
+
+{% for movie in object_list %}
+
+    <div class="card mb-3" style="max-width: 540px;">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                <a href="{% url 'core:movie_detail' movie.pk %}">
+                <img src="{{ movie.image.url }}" width="100px" alt="{{ movie.title }}">
+                </a>
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <a href="{% url 'core:movie_detail' movie.pk %}">{% movie_format movie %}</a>
+                    <hr>
+                    <a class="btn btn-sm btn-light" href="{% url 'core:movie_update' movie.pk %}">update</a>
+                    <a class="btn btn-sm btn-danger" href="{% url 'core:movie_delete' movie.pk %}">delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endfor %}
 {% endblock %}

@@ -1,0 +1,51 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'index' %}">
+            <img src="{% static 'img/brand.png' %}" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+            Django Movies</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'core:movie_list' %}">Manage Movies</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'core:movie_create' %}">Create Movie</a>
+                </li>
+
+            </ul>
+
+            <div class="nav-item dropdown ml-auto">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-user"></i>
+                </a>
+                <div class="dropdown-menu ml-auto" aria-labelledby="navbarDropdown">
+                    {% if user.is_authenticated %}
+                    <a class="dropdown-item" href="{% url 'accounts:profile' %}"><i class="fas fa-user-cog"></i>
+                        {{ user.username }}</a>
+                    <a class="dropdown-item" href="{% url 'accounts:password_change' %}">
+                        Change password
+                    </a>
+
+                    <div class="dropdown-divider"></div>
+
+                    <a class="dropdown-item" href="{% url 'accounts:logout' %}">
+                        Log out <i class="fas fa-sign-out-alt"></i>
+                    </a>
+                    {% else %}
+                    <a class="dropdown-item" href="{% url 'accounts:login' %}">
+                        Log in <i class="fas fa-sign-in-alt"></i>
+                    </a>
+                    <a class="dropdown-item" href="{% url 'accounts:signup' %}">
+                        Register
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
