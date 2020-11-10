@@ -127,6 +127,9 @@ MEDIA_URL = '/media/'
 LOGIN_REDIRECT_URL = 'index'
 LOGIN_URL = 'accounts:login'
 
+LOGOUT_REDIRECT_URL = 'index'
+
+
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # mail settings

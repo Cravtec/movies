@@ -13,6 +13,7 @@
         <strong>{{ movie|attr_as_p:'title' }}</strong>
         {{ movie|attr_as_p:'director' }}
         {{ movie|attr_as_p:'released' }}
+        <p><strong>Countries:</strong> {{ movie.country.all|join:", "  }}</p>
         {{ movie|attr_as_p:'genre' }}
         {{ movie|attr_as_p:'rating' }}
         {{ movie|attr_as_p:'description' }}

@@ -41,7 +41,7 @@ class Movie(models.Model):
     rating = models.IntegerField(null=True,
                                  validators=[MaxValueValidator(10),
                                              MinValueValidator(1)])
-    released = models.DateField()
+    released = models.DateField(auto_now=True)
     description = models.TextField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     genre = models.ForeignKey(Genre, null=True, on_delete=models.DO_NOTHING)

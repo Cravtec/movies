@@ -10,10 +10,16 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'core:movie_list' %}">Manage Movies</a>
+                    {% url 'core:movie_list' as list_url %}
+                    <a class="nav-link {% if request.get_full_path == list_url %}active{% endif %}" href="{% url 'core:movie_list' %}">
+                        Manage Movies
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'core:movie_create' %}">Create Movie</a>
+                    {% url 'core:movie_create' as create_url %}
+                    <a class="nav-link {% if request.get_full_path == create_url %}active{% endif %}" href="{% url 'core:movie_create' %}">
+                        Create Movie
+                    </a>
                 </li>
 
             </ul>
